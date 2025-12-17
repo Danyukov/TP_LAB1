@@ -15,37 +15,42 @@ class TextDataReader(DataReader):
                 if not line:
                     continue
 
-                # Если это строка со студентом:
-                #  - заканчивается на ":"  ИЛИ
-                #  - не содержит ":" вообще
+                # Строка со студентом:
+                #  - заканчивается на ":" и двоеточие одно
+                #  - или вообще не содержит ":" (тоже считаем именем)
                 if line.endswith(":") and line.count(":") == 1:
                     current_student = line[:-1].strip()
                     students.setdefault(current_student, [])
                     continue
 
                 if ":" not in line:
-                    # считаем, что это тоже имя студента
                     current_student = line.strip()
                     students.setdefault(current_student, [])
                     continue
 
-                # Иначе это "предмет:балл"
+                # Строка "предмет:балл"
                 if current_student is None:
-                    raise ValueError("Invalid TXT format: subject without student")
+                    raise ValueError(
+                        "Invalid TXT format: subject without student"
+                    )
 
                 subject, score_str = line.split(":", 1)
                 subject = subject.strip()
                 score_str = score_str.strip()
 
                 if subject == "":
-                    raise ValueError("Invalid TXT format: empty subject")
+                    raise ValueError(
+                        "Invalid TXT format: empty subject"
+                    )
 
                 try:
                     score = int(score_str)
                 except ValueError as exc:
-                    raise ValueError(
-                        f"Invalid TXT format: score must be int, got '{score_str}'"
-                    ) from exc
+                    msg = (
+                        "Invalid TXT format: score must be int, "
+                        f"got '{score_str}'"
+                    )
+                    raise ValueError(msg) from exc
 
                 students[current_student].append((subject, score))
 
