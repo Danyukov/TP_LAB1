@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 from Types import DataType
-from YAMLDataReader import YAMLDataReaderr
+from YAMLDataReader import YAMLDataReader
 
 
 class TestYAMLDataReader:
