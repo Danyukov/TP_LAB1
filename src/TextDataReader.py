@@ -55,3 +55,4 @@ class TextDataReader(DataReader):
                 students[current_student].append((subject, score))
 
         return students
+    
