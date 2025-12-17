@@ -16,18 +16,28 @@ class TestYAMLDataReader:
             "    литература: 78\n"
         )
         data: DataType = {
-            "Иванов Константин Дмитриевич": [("математика", 91), ("химия", 100)],
-            "Петров Петр Семенович": [("русский язык", 87), ("литература", 78)],
+            "Иванов Константин Дмитриевич": [
+                ("математика", 91),
+                ("химия", 100),
+            ],
+            "Петров Петр Семенович": [
+                ("русский язык", 87),
+                ("литература", 78),
+            ],
         }
         return text, data
 
     @pytest.fixture()
-    def filepath_and_data_list(self, yaml_list_text_and_data, tmpdir) -> tuple[str, DataType]:
+    def filepath_and_data_list(
+        self, yaml_list_text_and_data, tmpdir
+    ) -> tuple[str, DataType]:
         p = tmpdir.mkdir("yamldir").join("students.yaml")
         p.write_text(yaml_list_text_and_data[0], encoding="utf-8")
         return str(p), yaml_list_text_and_data[1]
 
-    def test_read_list_root(self, filepath_and_data_list: tuple[str, DataType]) -> None:
+    def test_read_list_root(
+        self, filepath_and_data_list: tuple[str, DataType]
+    ) -> None:
         file_content = YAMLDataReader().read(filepath_and_data_list[0])
         assert file_content == filepath_and_data_list[1]
 
