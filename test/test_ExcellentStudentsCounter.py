@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from src.ExcellentStudentsCounter import ExcellentStudentsCounter
-from src.Types import DataType
+from ExcellentStudentsCounter import ExcellentStudentsCounter
+from Types import DataType
 
 
 class TestExcellentStudentsCounter:
