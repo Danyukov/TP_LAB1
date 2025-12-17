@@ -15,9 +15,6 @@ class TextDataReader(DataReader):
                 if not line:
                     continue
 
-                # Строка со студентом:
-                #  - заканчивается на ":" и двоеточие одно
-                #  - или вообще не содержит ":" (тоже считаем именем)
                 if line.endswith(":") and line.count(":") == 1:
                     current_student = line[:-1].strip()
                     students.setdefault(current_student, [])
@@ -28,7 +25,6 @@ class TextDataReader(DataReader):
                     students.setdefault(current_student, [])
                     continue
 
-                # Строка "предмет:балл"
                 if current_student is None:
                     raise ValueError(
                         "Invalid TXT format: subject without student"
@@ -55,4 +51,3 @@ class TextDataReader(DataReader):
                 students[current_student].append((subject, score))
 
         return students
-    
